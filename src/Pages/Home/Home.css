@@ -1,0 +1,10 @@
+.container {
+  background: #f9f9f9;
+  margin-left: 17%;
+  padding: 20px;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.large-container {
+  margin-left: 7%;
+}

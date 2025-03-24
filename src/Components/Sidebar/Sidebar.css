@@ -1,0 +1,85 @@
+/* Sidebar Container */
+.sidebar {
+    background: #fff;
+    width: 15%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-left: 2%;
+    padding-top: 80px;
+    transition: width 0.3s ease-in-out;
+}
+
+.small-sidebar {
+    width: 5%;
+}
+.side-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+    text-decoration: none;
+    color: black;
+    position: relative;
+}
+
+.side-link img {
+    width: 22px;
+    margin-right: 15px;
+}
+
+
+.side-link:hover {
+    background: #f0f0f0;
+}
+
+
+.side-link.active::after {
+    content: "";
+    width: 20px;  /* Adjusted underline width */
+    height: 3px;   /* Thickness */
+    background: red;
+    position: absolute;
+    bottom: 3px;  /* Adjust position */
+    left: 9px;    /* Align properly under text */
+    border-radius: 2px;
+}
+
+/* When Sidebar is Collapsed */
+.small-sidebar .side-link.active::after {
+    width: 8px;  /* Smaller underline for icons */
+    left: 50%;   /* Center under the icon */
+    transform: translateX(-50%);
+}
+
+
+
+/* Divider */
+.sidebar hr {
+    border: none;
+    height: 1px;
+    background: #ccc;
+    width: 85%;
+    margin: 10px 0;
+}
+
+/* When Sidebar is collapsed */
+.small-sidebar .side-link {
+    justify-content: center;
+    padding: 10px;
+}
+
+.small-sidebar .side-link img {
+    margin-right: 0;
+}
+
+.small-sidebar p {
+    display: none;
+}
+
+.small-sidebar h3 {
+    display: none;
+}
