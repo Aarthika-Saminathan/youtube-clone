@@ -5,12 +5,12 @@ import PlayVideo from "../../Components/PlayVideo/PlayVideo";
 import Recommended from "../../Components/Recommended/Recommended";
 
 const Video = () => {
-  const { videoId } = useParams(); // No need for categoryId
+  const { videoId, categoryId } = useParams(); // ✅ Corrected destructuring
 
   return (
     <div className="play-container">
       <PlayVideo videoId={videoId} />
-      <Recommended videoId={videoId} /> {/* Corrected here */}
+      {categoryId && <Recommended categoryId={categoryId} />} {/* ✅ Only show Recommended if categoryId exists */}
     </div>
   );
 };

@@ -1,74 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import './Recommended.css';
-import { API_KEY } from '../../data';
-import { value_converter } from '../../data';
-
-
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./Recommended.css";
 
+const API_KEY = "YOUR_YOUTUBE_API_KEY"; // 🔴 Replace with a valid API key
 
-const Recommended = ({ videoId }) => {
-  const [recommendedVideos, setRecommendedVideos] = useState([]);
-  const [loading, setLoading] = useState(true);
+const Recommendation = ({ videoId }) => {
+  const [relatedVideos, setRelatedVideos] = useState([]);
 
   useEffect(() => {
-    if (!videoId) {
-      console.error("Error: videoId is undefined in Recommended component");
-      return;
-    }
-
-    const fetchRecommendedVideos = async () => {
-      try {
-        const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&type=video&maxResults=5&key=${API_KEY}`;
-
-        const response = await fetch(url);
-        const data = await response.json();
-
-        if (data.items) {
-          setRecommendedVideos(data.items);
-        } else {
-          console.error("No recommended videos found.");
-          setRecommendedVideos([]);
-        }
-      } catch (error) {
-        console.error("Error fetching recommended videos:", error);
-        setRecommendedVideos([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRecommendedVideos();
+    fetchRelatedVideos();
   }, [videoId]);
 
-  return (
-    <div className="recommended">
-      <h3>Recommended Videos</h3>
+  const fetchRelatedVideos = async () => {
+    try {
+      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&type=video&maxResults=8&key=${API_KEY}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      setRelatedVideos(data.items || []);
+    } catch (error) {
+      console.error("Error fetching related videos:", error);
+    }
+  };
 
-      {loading ? (
-        <p>Loading recommended videos...</p>
-      ) : recommendedVideos.length > 0 ? (
-        recommendedVideos.map((video) => (
-          <Link
-            to={`/video/${video.id.videoId}`}
-            key={video.id.videoId}
-            className="recommended-video"
-          >
-            <img
-              src={video.snippet.thumbnails.medium.url}
-              alt={video.snippet.title}
-            />
-            <div>
-              <h4>{video.snippet.title}</h4>
-              <p>{video.snippet.channelTitle}</p>
-            </div>
-          </Link>
-        ))
-      ) : (
-        <p>No recommended videos available.</p>
-      )}
+  return (
+    <div className="recommendations">
+      <h3 className="recommend-title">Recommended Videos</h3>
+      {relatedVideos.map((video) => (
+        <Link
+          key={video.id.videoId}
+          to={`/watch/${video.id.videoId}`}
+          className="recommend-item"
+        >
+          <img
+            src={video.snippet.thumbnails.medium.url}
+            alt={video.snippet.title}
+            className="recommend-thumbnail"
+          />
+          <div className="recommend-info">
+            <h4 className="recommend-title">{video.snippet.title}</h4>
+            <p className="recommend-channel">{video.snippet.channelTitle}</p>
+          </div>
+        </Link>
+      ))}
     </div>
   );
 };
 
-export default Recommended;
+export default Recommendation;

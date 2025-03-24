@@ -66,3 +66,21 @@ nav{
     padding: 5px;
     z-index: 999;
 }
+@media(max-width:900px){
+    .menu-icon{
+        display: none;
+    }
+    .menu-right img{
+        display: none;
+    }
+    .nav right .user_icon{
+        display: block;
+        width: 30px;
+    }
+    .logo{
+        width: 90px;
+    }
+    .nav-middle .search-box input{
+        width: 100px;
+    }
+}

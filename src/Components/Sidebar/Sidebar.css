@@ -83,3 +83,10 @@
 .small-sidebar h3 {
     display: none;
 }
+
+
+@media(max-width:900px){
+    .sidebar{
+        display: none;
+    }
+}
